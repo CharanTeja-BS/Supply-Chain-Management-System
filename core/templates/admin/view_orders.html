@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% block title %}All Orders - Admin{% endblock %}
+{% block content %}
+<div class="orders-container">
+    <div class="orders-header">
+        <h2 class="orders-title">All Orders</h2>
+        <p class="orders-subtitle">Complete overview of all customer orders</p>
+    </div>
+
+    <div class="orders-table-container">
+        <div class="table-responsive">
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        {% comment %} <th>Order ID</th> {% endcomment %}
+                        <th>Customer</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        {% comment %} <th>Unit Price</th>
+                        <th>Total</th> {% endcomment %}
+                        <th>Date Ordered</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr class="order-row status-{{ order.status|lower }}">
+                        {% comment %} <td>#{{ order.id }}</td> {% endcomment %}
+                        <td>
+                            <div class="customer-info">
+                                <div class="customer-name">{{ order.customer.user.username }}</div>
+                                <div class="customer-email">{{ order.customer.user.email }}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="product-info">
+                                <div class="product-name">{{ order.product.name }}</div>
+                                <div class="product-supplier">Supplier: {{ order.product.supplier.name }}</div>
+                            </div>
+                        </td>
+                        <td>{{ order.quantity }}</td>
+                        {% comment %} <td>₹{{ order.product.price|floatformat:2 }}</td>
+                        <td><strong>₹{{ order.get_total_amount|floatformat:2 }}</strong></td> {% endcomment %}
+                        <td>{{ order.date_ordered|date:"M d, Y H:i" }}</td>
+                        <td>
+                            <span class="status-badge">{{ order.status }}</span>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" class="no-orders">
+                            <i class="fas fa-clipboard-list"></i>
+                            <p>No orders found</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --primary: #2563eb;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --info: #3b82f6;
+        --light: #f9fafb;
+        --dark: #111827;
+        --secondary: #6b7280;
+    }
+
+    .orders-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+    
+    .orders-header {
+        margin-bottom: 2rem;
+    }
+    
+    .orders-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--dark);
+        margin-bottom: 0.5rem;
+    }
+    
+    .orders-subtitle {
+        color: var(--secondary);
+        font-size: 1rem;
+    }
+    
+    .orders-table-container {
+        background: white;
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    
+    .table-responsive {
+        overflow-x: auto;
+    }
+    
+    .orders-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+    }
+    
+    .orders-table th {
+        background-color: var(--light);
+        padding: 1rem;
+        text-align: left;
+        font-weight: 600;
+        color: var(--dark);
+        border-bottom: 2px solid #e5e7eb;
+    }
+    
+    .orders-table td {
+        padding: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        vertical-align: middle;
+    }
+    
+    .order-row:hover {
+        background-color: #f8fafc;
+    }
+    
+    .customer-info, .product-info {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .customer-name, .product-name {
+        font-weight: 500;
+    }
+    
+    .customer-email, .product-supplier {
+        font-size: 0.8rem;
+        color: var(--secondary);
+        margin-top: 0.25rem;
+    }
+    
+    .status-badge {
+        display: inline-block;
+        padding: 0.35rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-transform: capitalize;
+    }
+    
+    .status-pending {
+        background-color: #fef3c7;
+        color: #92400e;
+    }
+    
+    .status-completed {
+        background-color: #d1fae5;
+        color: #065f46;
+    }
+    
+    .status-cancelled {
+        background-color: #fee2e2;
+        color: #92400e;
+    }
+    
+    .status-shipped {
+        background-color: #dbeafe;
+        color: #1e40af;
+    }
+    
+    .no-orders {
+        text-align: center;
+        padding: 2rem;
+    }
+    
+    .no-orders i {
+        font-size: 2rem;
+        color: #9ca3af;
+        margin-bottom: 1rem;
+    }
+    
+    .no-orders p {
+        color: var(--secondary);
+    }
+    
+    /* Status row coloring */
+    .status-completed {
+        background-color: #f0fdf4;
+    }
+    
+    .status-cancelled {
+        background-color: #fef2f2;
+    }
+    
+    .status-pending {
+        background-color: #fffbeb;
+    }
+    
+    @media (max-width: 768px) {
+        .orders-container {
+            padding: 1rem;
+        }
+        
+        .orders-table th, 
+        .orders-table td {
+            padding: 0.75rem;
+        }
+    }
+</style>
+
+<script>
+    // Add status classes to badges
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusBadges = document.querySelectorAll('.status-badge');
+        statusBadges.forEach(badge => {
+            const status = badge.textContent.toLowerCase();
+            badge.classList.add(`status-${status}`);
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2 class="dashboard-title">Dashboard</h2>
+        <p class="welcome-message">Welcome back, <span class="username">{{ user.username }}</span>!</p>
+    </div>
+
+    <div class="dashboard-content">
+        {% if user.is_staff %}
+        <div class="admin-section">
+            <h3 class="section-title">Admin Controls</h3>
+            <div class="card-grid">
+                <a href="{% url 'add_company' %}" class="dashboard-card">
+                    <div class="card-icon bg-primary">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h4>Add Company</h4>
+                    <p>Register new companies in the system</p>
+                </a>
+                
+                <a href="{% url 'add_supplier' %}" class="dashboard-card">
+                    <div class="card-icon bg-success">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h4>Add Supplier</h4>
+                    <p>Manage your suppliers and vendors</p>
+                </a>
+                
+                <a href="{% url 'add_product' %}" class="dashboard-card">
+                    <div class="card-icon bg-warning">
+                        <i class="fas fa-box-open"></i>
+                    </div>
+                    <h4>Add Product</h4>
+                    <p>Add new products to inventory</p>
+                </a>
+                
+                <a href="{% url 'view_orders' %}" class="dashboard-card">
+                    <div class="card-icon bg-info">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <h4>View All Orders</h4>
+                    <p>Monitor and manage all customer orders</p>
+                </a>
+            </div>
+        </div>
+        {% else %}
+        <div class="user-section">
+            <h3 class="section-title">Quick Actions</h3>
+            <div class="card-grid">
+                <a href="{% url 'order_product' %}" class="dashboard-card">
+                    <div class="card-icon bg-primary">
+                        <i class="fas fa-cart-plus"></i>
+                    </div>
+                    <h4>Place an Order</h4>
+                    <p>Order new products from suppliers</p>
+                </a>
+                
+                <a href="{% url 'my_orders' %}" class="dashboard-card">
+                    <div class="card-icon bg-purple">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h4>My Orders</h4>
+                    <p>View your order history and status</p>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .dashboard-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        {% comment %} margin-top:50px; {% endcomment %}
+    }
+    
+    .dashboard-header {
+        margin-bottom: 2.5rem;
+    }
+    
+    .dashboard-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 0.5rem;
+    }
+    
+    .welcome-message {
+        font-size: 1.1rem;
+        color: #6b7280;
+    }
+    
+    .username {
+        font-weight: 600;
+        color: #2563eb;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #e5e7eb;
+    }
+    
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .dashboard-card {
+        background: white;
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid #e5e7eb;
+    }
+    
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        border-color: #2563eb;
+    }
+    
+    .card-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        color: white;
+        font-size: 1.5rem;
+    }
+    
+    .dashboard-card h4 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 0.5rem;
+    }
+    
+    .dashboard-card p {
+        color: #6b7280;
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    
+    /* Color Utilities */
+    .bg-primary { background-color: #2563eb; }
+    .bg-success { background-color: #10b981; }
+    .bg-warning { background-color: #f59e0b; }
+    .bg-info { background-color: #3b82f6; }
+    .bg-purple { background-color: #8b5cf6; }
+    .bg-danger { background-color: #ef4444; }
+    
+    @media (max-width: 768px) {
+        .dashboard-container {
+            padding: 1.5rem;
+        }
+        
+        .card-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}

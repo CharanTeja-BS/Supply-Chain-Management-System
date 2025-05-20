@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% block title %}Add Product{% endblock %}
+{% block content %}
+<div class="product-form-container">
+    <div class="form-header">
+        <h2 class="form-title">Add New Product</h2>
+        <p class="form-subtitle">Enter product details to add to inventory</p>
+    </div>
+
+    <form method="post" class="product-form">
+        {% csrf_token %}
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">Product Name</label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                    <div class="error-message">{{ form.name.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.price.id_for_label }}">Price (₹)</label>
+                {{ form.price }}
+                {% if form.price.errors %}
+                    <div class="error-message">{{ form.price.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.description.id_for_label }}">Description</label>
+            {{ form.description }}
+            {% if form.description.errors %}
+                <div class="error-message">{{ form.description.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="{{ form.quantity.id_for_label }}">Initial Quantity</label>
+                {{ form.quantity }}
+                {% if form.quantity.errors %}
+                    <div class="error-message">{{ form.quantity.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.supplier.id_for_label }}">Supplier</label>
+                {{ form.supplier }}
+                {% if form.supplier.errors %}
+                    <div class="error-message">{{ form.supplier.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.company.id_for_label }}">Company</label>
+                {{ form.company }}
+                {% if form.company.errors %}
+                    <div class="error-message">{{ form.company.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-plus-circle me-2"></i> Add Product
+            </button>
+        </div>
+    </form>
+</div>
+
+<style>
+    :root {
+        --primary: #2563eb;
+        --primary-light: #dbeafe;
+        --secondary: #6b7280;
+        --light: #f9fafb;
+        --dark: #111827;
+        --success: #10b981;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --info: #3b82f6;
+        --rounded: 0.5rem;
+        --rounded-lg: 0.75rem;
+    }
+
+    .product-form-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: white;
+        border-radius: var(--rounded-lg);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-header {
+        margin-bottom: 2rem;
+    }
+    
+    .form-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--dark);
+        margin-bottom: 0.5rem;
+    }
+    
+    .form-subtitle {
+        color: var(--secondary);
+        font-size: 1rem;
+    }
+    
+    .product-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .form-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .form-group label {
+        font-weight: 500;
+        color: var(--dark);
+    }
+    
+    input, select, textarea {
+        padding: 0.75rem 1rem;
+        border: 1px solid #d1d5db;
+        border-radius: var(--rounded);
+        font-size: 1rem;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    
+    textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+    
+    input:focus, select:focus, textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    
+    .error-message {
+        color: var(--danger);
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+    
+    .form-actions {
+        margin-top: 1.5rem;
+    }
+    
+    .btn-primary {
+        background-color: var(--primary);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: var(--rounded);
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .btn-primary:hover {
+        background-color: #1d4ed8;
+        transform: translateY(-1px);
+    }
+    
+    @media (max-width: 768px) {
+        .product-form-container {
+            padding: 1.5rem;
+            margin: 1rem;
+        }
+        
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}

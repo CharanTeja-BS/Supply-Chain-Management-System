@@ -1,0 +1,436 @@
+{% extends 'base.html' %}
+{% block title %}Home - SCMS{% endblock %}
+{% block content %}
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">Streamline Your Supply Chain Operations</h1>
+        <p class="hero-description">
+          Our comprehensive management system helps you efficiently track inventory, process orders, 
+          and manage suppliers—all in one centralized platform.
+        </p>
+        <div class="hero-actions">
+          {% if user.is_authenticated %}
+          <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg">
+            <i class="fas fa-tachometer-alt me-2"></i> Go to Dashboard
+          </a>
+          {% else %}
+          <a href="{% url 'login' %}" class="btn btn-primary btn-lg">
+            <i class="fas fa-sign-in-alt me-2"></i> Login
+          </a>
+          <a href="{% url 'register' %}" class="btn btn-outline btn-lg">
+            <i class="fas fa-user-plus me-2"></i> Register
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://illustrations.popsy.co/amber/digital-nomad.svg" alt="Supply Chain Illustration" class="img-fluid">
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="container">
+      <h2 class="section-title">Powerful Features for Your Business</h2>
+      <p class="section-subtitle">Everything you need to manage your supply chain effectively</p>
+      
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon bg-primary-light">
+            <i class="fas fa-shopping-cart text-primary"></i>
+          </div>
+          <h3>Order Management</h3>
+          <p>Place and track orders with real-time status updates and notifications.</p>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon bg-danger-light">
+            <i class="fas fa-undo-alt text-danger"></i>
+          </div>
+          <h3>Order Cancellation</h3>
+          <p>Cancel orders with automatic inventory adjustment and refund processing.</p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon bg-warning-light">
+            <i class="fas fa-building text-warning"></i>
+          </div>
+          <h3>Company Management</h3>
+          <p>Admin can add and manage all company information in the system.</p>
+        </div>
+        
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon bg-success-light">
+            <i class="fas fa-truck text-success"></i>
+          </div>
+          <h3>Supplier Management</h3>
+          <p>Maintain complete supplier records and procurement details.</p>
+        </div>
+        
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="feature-icon bg-info-light">
+            <i class="fas fa-box-open text-info"></i>
+          </div>
+          <h3>Inventory Tracking</h3>
+          <p>Real-time product quantity updates with automatic stock adjustments.</p>
+        </div>
+        
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="feature-icon bg-purple-light">
+            <i class="fas fa-file-invoice-dollar text-purple"></i>
+          </div>
+          <h3>Payment System</h3>
+          <p>Automatic payment records with order and refund status tracking.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  {% if not user.is_authenticated %}
+  <section class="cta-section bg-gradient">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to optimize your supply chain?</h2>
+        <p>Join hundreds of businesses managing their operations efficiently with our platform.</p>
+        <a href="{% url 'register' %}" class="btn btn-light btn-lg">
+          <i class="fas fa-rocket me-2"></i> Get Started Now
+        </a>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+</div>
+
+<style>
+  :root {
+    --primary: #2563eb;
+    --primary-light: #dbeafe;
+    --secondary: #6b7280;
+    --light: #f9fafb;
+    --dark: #111827;
+    --success: #10b981;
+    --success-light: #d1fae5;
+    --danger: #ef4444;
+    --danger-light: #fee2e2;
+    --warning: #f59e0b;
+    --warning-light: #fef3c7;
+    --info: #3b82f6;
+    --info-light: #dbeafe;
+    --purple: #8b5cf6;
+    --purple-light: #ede9fe;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --rounded: 0.5rem;
+    --rounded-lg: 0.75rem;
+    --rounded-xl: 1rem;
+  }
+
+  .home-container {
+    overflow-x: hidden;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding: 5rem 2rem;
+    background-color: white;
+  }
+
+  .hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  .hero-text {
+    flex: 1;
+  }
+
+  .hero-title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .hero-description {
+    font-size: 1.25rem;
+    color: var(--secondary);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    max-width: 600px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-image img {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
+  }
+
+  .floating-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+
+  /* Features Section */
+  .features-section {
+    padding: 5rem 2rem;
+    background-color: var(--light);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .section-subtitle {
+    font-size: 1.125rem;
+    color: var(--secondary);
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .feature-card {
+    background: white;
+    border-radius: var(--rounded-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .feature-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: var(--rounded);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.75rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .feature-card p {
+    color: var(--secondary);
+    line-height: 1.6;
+    text-align: center;
+    font-size: 0.95rem;
+  }
+
+  /* Color Utilities */
+  .bg-primary-light { background-color: var(--primary-light); }
+  .bg-danger-light { background-color: var(--danger-light); }
+  .bg-warning-light { background-color: var(--warning-light); }
+  .bg-success-light { background-color: var(--success-light); }
+  .bg-info-light { background-color: var(--info-light); }
+  .bg-purple-light { background-color: var(--purple-light); }
+
+  .text-primary { color: var(--primary); }
+  .text-danger { color: var(--danger); }
+  .text-warning { color: var(--warning); }
+  .text-success { color: var(--success); }
+  .text-info { color: var(--info); }
+  .text-purple { color: var(--purple); }
+
+  /* CTA Section */
+  .cta-section {
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    color: white;
+  }
+
+  .cta-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .cta-content h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--primary);
+  }
+
+  .cta-content p {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    color: var(--warning);
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--rounded);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+  }
+
+  .btn-primary {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+  }
+
+  .btn-primary:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+
+  .btn-outline {
+    background-color: white;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+  }
+
+  .btn-outline:hover {
+    background-color: #f5f8ff;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+
+  .btn-light {
+    background-color: white;
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .btn-light:hover {
+    background-color: #f3f4f6;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .hero-content {
+      gap: 2rem;
+    }
+    
+    .hero-title {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-section {
+      padding: 3rem 1.5rem;
+    }
+    
+    .hero-content {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .hero-actions {
+      justify-content: center;
+    }
+    
+    .hero-title {
+      font-size: 2rem;
+    }
+    
+    .hero-description {
+      font-size: 1.1rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .features-section {
+      padding: 3rem 1.5rem;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-actions {
+      flex-direction: column;
+    }
+    
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .btn-lg {
+      width: 100%;
+    }
+  }
+</style>
+{% endblock %}
