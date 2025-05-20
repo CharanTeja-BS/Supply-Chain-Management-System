@@ -13,8 +13,6 @@ A robust, web-based **Supply Chain Management System (SCMS)** built with **Djang
 - [🔗 Database Relationships](#-database-relationships)
 - [🗺️ Relational Model & Schema](#-relational-model--schema)
 - [⚙️ Technologies Used](#-technologies-used)
-- [🚀 Future Scope](#-future-scope)
-- [📬 Contact](#-contact)
 
 ---
 
